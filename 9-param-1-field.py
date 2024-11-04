@@ -14,14 +14,14 @@ import random as rm
 range_param = 3
 
 u_inf = 0
-u_sup = 2*3.14
+u_sup = 3.14
 v_inf = 0
-v_sup = 6.28
+v_sup = 2 * 3.14
 
 # Risoluzione della superficie
 surface_res = 50
 
-plot_basis = False
+plot_basis = True
 
 # Numero di vettori plottati = field_res^2
 field_res = 0
@@ -29,11 +29,11 @@ field_res = 0
 # queste curve integrali corrispondono a un vettore tangente del campo plottato
 # numero punti iniziali plottati = questo parametro --> AL QUADRATO <--
 # distribuiti su griglia regolare, dove c'è un vettore del flusso plottato
-number_initial_points = 0
+# number_initial_points = 1
 
 # queste curve integrali hanno un punto iniziale a caso sulla superficie
 # numero di punti iniziali con relativa curva plottate = questo parametro
-number_extra_initial_points = 3
+number_extra_initial_points = 1
 
 # dominio di curve integrali e accuratezza di ODE solver
 time=np.linspace(0,15,1000)
@@ -48,14 +48,17 @@ u, v = symbols('u v')
 # Z_s = 0.1*sin(u)*cos(v)
 
 'Sphere'
-# X_s = sin(u) * cos(v)
-# Y_s = sin(u) * sin(v)
-# Z_s = cos(u)
+X_s = sin(u) * cos(v)
+Y_s = sin(u) * sin(v)
+Z_s = cos(u)
 
 'Torus'
-X_s = ( 2 + cos(u) ) * cos(v)
-Y_s = ( 2 + cos(u) ) * sin(v)
-Z_s = sin(u)
+# X_s = ( 2 + cos(u) ) * cos(v)
+# Y_s = ( 2 + cos(u) ) * sin(v)
+# Z_s = sin(u)
+
+
+#-------------------------------------------------------------------------------------------------------------------
 
 # derivatives
 du_X_s = diff(X_s, u)
@@ -92,17 +95,25 @@ y_surface = FY(u_surface,v_surface)
 z_surface = FZ(u_surface,v_surface)
 # Display the mesh
 fig = plt.figure()
-ax = fig.gca(projection = '3d')
+# ax = fig.gca(projection = '3d')
+ax = fig.add_subplot(111, projection='3d')
 ax.plot_surface(x_surface, y_surface, z_surface, cmap = 'viridis', rstride = 1, cstride = 1, alpha = 0.5)
 
 
 
 # basis tangent vector fields
-def DU(u,v):
-	return np.array([duFX(u,v), duFY(u,v), duFZ(u,v)])
+# def DU(u,v):
+# 	return np.array([duFX(u,v), duFY(u,v), duFZ(u,v)])
 
-def DV(u,v):
-	return np.array([dvFX(u,v), dvFY(u,v), dvFZ(u,v)])
+# def DV(u,v):
+# 	return np.array([dvFX(u,v), dvFY(u,v), dvFZ(u,v)])
+
+# basis tangent vector fields
+def DU(u, v):
+    return np.array([duFX(u, v), duFY(u, v), duFZ(u, v)], dtype=object)
+
+def DV(u, v):
+    return np.array([dvFX(u, v), dvFY(u, v), dvFZ(u, v)], dtype=object)
 
 # domain
 u_vector = np.linspace(u_inf, u_sup, field_res)
@@ -124,12 +135,15 @@ if plot_basis == True:
 
 # THE vector field whose flow is studied
 # vectors domain on surface
-# <--------------------------------------------------------------------------------- VECTOR FIELD HERE
+# <--------------------------------------------------------------------------------------------------------- VECTOR FIELD HERE
 #NICE ONE
 def cu(u,v):
 	return v-u 
 def cv(u,v):
 	return -2*(u-1)
+
+
+# --------------------------------------------------------------------------------------------------------- end vector field
 
 # cannot be written just as cu * DU + cv * DV for techincal plotting reasons (need some matrix product)
 # but conceptually it is exactly the linear combination of the basis vector fields DU, DV with coefficients cu, cv
@@ -168,11 +182,11 @@ vv = np.linspace(v_inf, v_sup, surface_res)
 for i in range(number_extra_initial_points):
 	j = rm.randint(0, surface_res-1)
 	k = rm.randint(0, surface_res-1)
-	P = [uu[i], vv[j]]
+	P = [uu[j], vv[k]]
 	plot_integral_curve(P)
 
-ax.set_xlim(-range_param,range_param)
-ax.set_ylim(-range_param,range_param)
-ax.set_zlim(-range_param,range_param)
+# ax.set_xlim(-range_param,range_param)
+# ax.set_ylim(-range_param,range_param)
+# ax.set_zlim(-range_param,range_param)
 plt.show()
 
