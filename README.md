@@ -21,15 +21,15 @@ Now, 1 is the core of the idea "Plot a vector field of arbitrary components tang
 
 File 2 does the same with 2 fields; but these version do the very stupid things of first mapping the vector field from parameter space to the manifold, and then solving the flow ODE. In version 9, the ode is solved in parameter space and the corresponding curve is mapped to the  manifold, which makes much easier to plot curves on spheres or tori, for example.
     
-    The other files are on different lines: 3 investigates Frobenious theorem, so it starts with vector fields and finds the parametrization of the tangent distribution. 3 does it simbolically and 5 numerically. 4 is a short interlude about pushforwards, not too relevant (see Sympy for that). 6 is another interlude abot rotations as the acion of Lie groups on manifolds.
+The other files are on different lines: 3 investigates Frobenious theorem, so it starts with vector fields and finds the parametrization of the tangent distribution. 3 does it simbolically and 5 numerically. 4 is a short interlude about pushforwards, not too relevant (see Sympy for that). 6 is another interlude abot rotations as the acion of Lie groups on manifolds.
     
-    7 is nice as it introduces a way to plot a graph surface on a domain which is not simply a product of intervals, so a 2-simplex in R3 can be plotted.
+7 is nice as it introduces a way to plot a graph surface on a domain which is not simply a product of intervals, so a 2-simplex in R3 can be plotted.
     
-    8 puts 1 and 7 togethes, plotting the flow of a vector field on a simplex, with the stupid approach of solving the ode on the simplex.
+8 puts 1 and 7 togethes, plotting the flow of a vector field on a simplex, with the stupid approach of solving the ode on the simplex.
     
-    Recall that 9, as said above, improves 1 by solving the ode in parameter space; so 10 puts 8 and 9 togehter, plotting the flow of a vector field on the simplex, solving the ode in parameter space.
+Recall that 9, as said above, improves 1 by solving the ode in parameter space; so 10 puts 8 and 9 togehter, plotting the flow of a vector field on the simplex, solving the ode in parameter space.
     
-    Ok I swear I start using git now and organize things in branches and old commits :)
+Ok I swear I start using git now and organize things in branches and old commits :)
 
 
 ---
