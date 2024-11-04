@@ -21,12 +21,12 @@ vector_range = 1
 # number of plotted vectors = this number ^ 3. chill, can grow, non-critical
 vector_res = 0
 
-surface_res = 50
+surface_res = 100
 
 ode_res = 2000
 
 # not important, just time of 2 integral curves plotted
-integral_curve_end_time = 10
+integral_curve_end_time = 1000
 
 # Parametric surface
 
@@ -51,31 +51,33 @@ A = 1
 B = 1
 C = 1
 
+
 def X(x,y,z):
-	return [A*y+B*z, -A*x+C*z, -B*x-C*y]
+	# return [A*y+B*z, -A*x+C*z, -B*x-C*y]
+	return [x*y*z, x*x*z, -2*x*x*y]
 
 # ------------------------------------------------------------------------------------------------------------------------------------------------------------ 
 # PLOT AXIS
 
-axis_time = np.linspace(-1.1,1.1,100)
-x_axis_generator = C 
-y_axis_generator = -B 
-z_axis_generator = A 
+# axis_time = np.linspace(-1.1,1.1,100)
+# x_axis_generator = C 
+# y_axis_generator = -B 
+# z_axis_generator = A 
 
-x_axis = x_axis_generator * axis_time
-y_axis = y_axis_generator * axis_time
-z_axis = z_axis_generator * axis_time
+# x_axis = x_axis_generator * axis_time
+# y_axis = y_axis_generator * axis_time
+# z_axis = z_axis_generator * axis_time
 
-ax.plot(x_axis, y_axis, z_axis)
+# ax.plot(x_axis, y_axis, z_axis)
 
-# axis points on unit sphere, fp = fixpoint
-z_fp_1 = (C**2 / A**2 + B**2 / A**2 + 1)**(-0.5)
-x_fp_1 = C * z_fp_1 / A
-y_fp_1 = -B * z_fp_1 / A
+# # axis points on unit sphere, fp = fixpoint
+# z_fp_1 = (C**2 / A**2 + B**2 / A**2 + 1)**(-0.5)
+# x_fp_1 = C * z_fp_1 / A
+# y_fp_1 = -B * z_fp_1 / A
 
-z_fp_2 = -z_fp_1
-x_fp_2 = C * z_fp_2 / A
-y_fp_2 = -B * z_fp_2 / A
+# z_fp_2 = -z_fp_1
+# x_fp_2 = C * z_fp_2 / A
+# y_fp_2 = -B * z_fp_2 / A
 
 # ------------------------------------------------------------------------------------------------------------------------------------------------------------ 
 # PLOT SCATTER DI VETTORI
@@ -103,10 +105,10 @@ def mk_p(a,b):
 	c = np.sqrt(cq)
 	return [a,b,c]
 
-
-POINTS = [mk_p(1,0), mk_p(0,1), mk_p(0,0)] # some free points
-POINTS.append( [x_fp_1, y_fp_1, z_fp_1] )
-POINTS.append( [x_fp_2, y_fp_2, z_fp_2] )
+POINTS = [mk_p(0.5,0.8), mk_p(0.3,0.2), mk_p(-0.1,0.4), mk_p(0.2,0.3), mk_p(0.3,0.1), mk_p(-0.4,0.6)] # some free points
+# POINTS = [mk_p(1,0), mk_p(0,1), mk_p(0,0)] # some free points
+# POINTS.append( [x_fp_1, y_fp_1, z_fp_1] )
+# POINTS.append( [x_fp_2, y_fp_2, z_fp_2] )
 
 # add axis points
 

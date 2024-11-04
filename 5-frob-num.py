@@ -17,24 +17,27 @@ import random as rm
 Given two vector fields plots the surface obtained composing the two flows.
 It does not check if they commute or not, this has to be done somewhere else.
 It follows X first and Y after; if they commute, it does not matter. 
+
+The domain is given by vector range.
+The point defining the leaf and the integral curves is randomly selected in the domain.
 '''
 
 #########
 
 # grid where vectors are plotted, chill, can grow, non-critical
-vector_range = 2
+vector_range = 3
 
 # number of plotted vectors = this number ^ 3. chill, can grow, non-critical
 vector_res = 5
 
 # Range of the double flow, noncritical.
-surface_range = 2
+surface_range = 50
 
 # risoluzione delle foglie !!--- CRITICAL: number od ODE solved = this param^2 ---!!
 surface_res = 100
 
 # Resolution of every ODE solution !!--- CRITICAL: resolution of every single ODE solution ---!!
-ode_res = 2000
+ode_res = 1000
 
 # not important, just time of 2 integral curves plotted
 integral_curve_end_time = 10
@@ -45,10 +48,10 @@ integral_curve_end_time = 10
 # <------------------------------------------------------------------------------- 
 
 def X(x,y,z):
-	return [np.sin(x), -x+z, -x-y] #[y+z, -x+z, -x-y]
+	return  [1,0,-y/2] #[np.sin(x), -x+z, -x-y] #[y+z, -x+z, -x-y]
 
 def Y(x,y,z):
-	return [y+z,-x,-x]
+	return [0,1,x/2] #[y+z,-x,-x]
 
 # ------------------------------------------------------------------------------------------------------------------------------------------------------------ 
 # ------------------------------------------------------------------------------------------------------------------------------------------------------------ 
@@ -57,10 +60,10 @@ def Y(x,y,z):
 fig = plt.figure()
 ax = fig.gca(projection = '3d')
 
-
-x_vector, y_vector, z_vector = np.meshgrid(	np.linspace(-vector_range, vector_range, vector_res),
-											np.linspace(-vector_range, vector_range, vector_res),
-						  					np.linspace(-vector_range, vector_range, vector_res))
+# Domain
+x_vector, y_vector, z_vector = np.meshgrid(	np.linspace(1, vector_range, vector_res),
+											np.linspace(1, vector_range, vector_res),
+						  					np.linspace(1, vector_range, vector_res))
 
 X_plot = X(x_vector, y_vector, z_vector)
 Y_plot = Y(x_vector, y_vector, z_vector)
@@ -71,6 +74,7 @@ Y_color = 'green'
 ax.quiver(x_vector, y_vector, z_vector, X_plot[0], X_plot[1], X_plot[2], length = 0.2, color = X_color)
 ax.quiver(x_vector, y_vector, z_vector, Y_plot[0], Y_plot[1], Y_plot[2], length = 0.2, color = Y_color)
 
+# The point defining the leaf and the integral curves
 i, j, k = rm.randint(0, vector_res-1), rm.randint(0, vector_res-1), rm.randint(0, vector_res-1)
 
 POINT = [x_vector[i][j][k], y_vector[i][j][k], z_vector[i][j][k]] # <---------------------------------------------- POINT
